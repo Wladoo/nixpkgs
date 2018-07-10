@@ -6,7 +6,7 @@ let
       pkgs.releaseTools.sourceTarball {
         name = "test-tarball";
         srv = <hello>;
-        buildInputs = (with pkgs; [ gettext texLive texinfo)]);
+        buildInputs = (with pkgs; [ gettext texLive texinfo]);
       };
     
     build = 
