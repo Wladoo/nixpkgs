@@ -1,24 +1,24 @@
-let
-  pkgs = import <nixpkgs> {};
-  jobs = rec {
+{ fastcgiSrc ? { outPath = ../fastcgi; revCount = 0; gitTag = "dirty"; }
+, supportedSystems ? ["x86_64-linux"]
+}:
 
-    tarball = 
-      pkgs.releaseTools.sourceTarball {
-        name = "test-tarball";
-        srv = <hello>;
-        buildInputs = (with pkgs; [ gettext texLive texinfo]);
-      };
-    
-    build = 
-      { system ? builtins.current.System}:
+with (import <nixpkgs/pkgs/top-level/release-lib.nix> { inherit supportedSystems; });
 
-      let pkgs = import <nixpkgs> {inherit system; }; in
-      pkgs.releaseTools.nixBuild {
-        name = "hello";
-        src = jobs.tarball;
-        configureFlahs = [ "--disable-silent-rules" ];
-      };
+rec {
+
+  tarball = pkgs.releaseTools.sourceTarball {
+    name = "libfastcgi";
+    src = fastcgiSrc;
+    version = fastcgiSrc.gitTag;
   };
-in
-  jobs
 
+  build = pkgs.lib.genAttrs supportedSystems (system:
+    let
+      pkgs = pkgsFor system;
+    in
+      pkgs.releaseTools.nixBuild {
+        name = "libfastcgi";
+        src = tarball;
+        buildInputs = [ pkgs.boost.out ];
+      }
+  );
