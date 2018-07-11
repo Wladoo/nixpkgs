@@ -15,7 +15,7 @@ let
 
       let pkgs = import <nixpkgs> { inherit system; }; in
         pkgs.releaseTools.channel {
-        constituents = jobs;
+        constituents = [build tarball];
         name = "my-channel";
         src = ./.;
       };
