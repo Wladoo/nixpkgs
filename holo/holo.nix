@@ -54,7 +54,7 @@ let
         '';
       };
     in mkChannel (args // { inherit src; });
-   machines = import ../machines;
+   #machines = import ../machines;
 in {
   machines = stdenv.lib.genAttrs ["build-1"]
     (name: mkChannelWithNixpkgs {
@@ -64,5 +64,5 @@ in {
     });
 
   # build all our custom packages
-  inherit (import ./../pkgs { inherit pkgs; }) snabbpkgs;
+  inherit (import ./../pkgs { inherit pkgs; }) holopkgs;
 }
