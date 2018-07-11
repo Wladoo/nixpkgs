@@ -59,7 +59,7 @@ in {
   machines = stdenv.lib.genAttrs ["build-1"]
     (name: mkChannelWithNixpkgs {
       name = "holo-machine-${name}";
-      constituents = [ machines.${name}.eval.config.system.build.toplevel ];
+      constituents = [ "test123" ];
       src = ./../.;
     });
 
