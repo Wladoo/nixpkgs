@@ -6,8 +6,8 @@ let
     tarball =
       pkgs.releaseTools.sourceTarball {
         name = "hello-tarball";
-        src = ./.;
-        #buildInputs = (with pkgs; [ gettext texLive texinfo ]);
+        src = pkgs.hello;
+        buildInputs = (with pkgs; [ pkgs.gettext pkgs.texinfo ]);
       };
 
     build =
