@@ -1,0 +1,95 @@
+* HoloportOS
+** Services
+*** holohost
+**** holochain
+**** [[https://github.com/holochain/lib3h][lib3h]] 
+**** [[https://github.com/flyingcircusio/vulnix][Vulnix]] could be very useful for asessing the security of nixos systems
+**** Questions that we need answered:
+***** DONE Who is going to manage the nixos on holoports?
+      CLOSED: [2018-07-16 Mon 19:52]
+Everything will be pulled to the holoport from our channels, nothing will be
+remotely administered.
+***** TODO What security pieces do we want to put into place?
+****** 
+*** Hosting app
+**** Signed service logs
+
+**** If i'm hosing fairbnb, ever request that comes to me, I'll record. I'll also record and sign some information about 
+ I can't go back and change this record without breaking the hashes. It's a way
+ of making a weblog without being able to counterfeit that the records are being
+ done. This is what we mean by Hquery. A library of functions that if I'm hitting
+ a box and it has a bunch of different style assets. In fact, it would be better
+ to pull those assets from other nodes on the network that don't know if I'm
+ signed in or not.  
+**** Web gateway services
+***** User centric container management (if possible with nixos containers?)
+**** Peer performance metrics
+ The peers gossip together already. They record performance metrics about each
+ other when they do. We need to collect that data. If you're running holohost,
+ that data is shared to holo (uptime, latency, bandwidth, etc). So that when an
+ application is pricing for performance of their app, hosts that meet their
+ requirements can be chosen.
+*** Network/Routing
+**** DNS bridge from holochain to web
+ Perhaps this would point to a CDN endpoint running a promether node
+**** CDN service workers (cloudflare?)
+ Service workers are a cloud feature that cloudflare built was to respond to DNS
+ queries with js, and allow that inbound request to be fulfilled by the js. For
+ instance you could take the hash of the request, and send the modulo on to the 
+**** Tranches of service providers:
+***** Latency
+***** CPU abilities
+***** HIPPA certified
+***** Location
+***** Industry 
+**** Host selection/Rotation
+*** Holochain of holochains
+**** An holochain app that contains other apps
+This is trivial to implement in nixos: with holchain-go, we simply create a new
+service but with a different command (and the holochain which you connect to is
+specified in the systemd service config)
+*** Reserve accounts
+**** Using LIFO accounting (last in first out)
+**** Someone has money in a fiat reserve account
+**** That is represented as a negative (with a corresponding positive of holo fuel)
+**** That negative can be taken by those who have provided hosting and claim against
+**** This is ONLY available to hosters. They can use the reserve accounts to get some fiat for their hosting efforts
+****  
+** Build and test
+*** Options:
+**** nixpkgs -> nixbox -> packer
+**** use the standard nixos installer, but with a script that auto-installs
+Where did we see that?
+**** 
+*** Hydra:
+Build and testing in *our* repo (not a fork of nixpkgs)
+Name for the repo? [
+Input 1:
+Input 2: 
+Old way: point channels are pointed to a hydra channel.
+New way: Produce the channel at the same time as the ISO generation. copy the channels as artifacts to a CDN, and then 
+If everything passes, they are building the artifacts. The channel that you
+point to is a tarball that is stored on static hosting which hosts the artifacts
+away from hydra. 
+*** Which image build expressions do we use
+*** DONE Signature checking: not-os uses IPXE
+    CLOSED: [2018-07-16 Mon 19:49]
+Note: in standup today, @samrose said it was unlikely that network provisioning
+(as per redhat kickstart or [[https://github.com/grahamc/packet-provision-nixos-ipxe/][nixos iPXE]] ) was supported by the manufacturer. 
+*** holochain-go packaged!
+** Softare channels
+** 
+* Tasks
+** DONE Talk with samrose 
+   CLOSED: [2018-07-16 Mon 19:47]
+   :LOGBOOK:
+   CLOCK: [2018-07-13 Fri 14:53]--[2018-07-15 Sun 13:31] => 46:38
+   :ACTION: why is there no industry support for our target? What is our target?
+   :END:
+Questions remain: if we create an image that *could* be dd'ed over, is that
+actually what they are going to do?
+** TODO push design notes
+   :LOGBOOK:
+   CLOCK: [2018-07-16 Mon 19:44]--[2018-07-16 Mon 19:55] =>  0:11
+   :END:
+** TODO setup nixos dev and test on aws
