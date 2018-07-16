@@ -16,6 +16,11 @@ in {
         default = false;
         description = "Whether to start the Holohost service.";
       };
+      agent = mkOption {
+        type = types.path;
+        default = null;
+        description = "Where the agent string is stored (/dev/usb? talking with ledger Thurs)";
+      };
 
     };
   };
