@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 with lib;
 let
-  cfg = config.services.holoport;
+  cfg = config.services.holohost;
 
 in {
 
@@ -9,12 +9,12 @@ in {
 
   options = {
 
-    services.holoport = {
+    services.holohost = {
 
       enable = mkOption {
         type = types.bool;
         default = false;
-        description = "Whether to start the Holoport service.";
+        description = "Whether to start the Holohost service.";
       };
 
     };
@@ -24,11 +24,11 @@ in {
 
   config = mkIf cfg.enable {
 
-    systemd.user.services.holoport = {
-      description = "Holoport service";
+    systemd.user.services.holohost = {
+      description = "Holohost service";
       serviceConfig = {
         ExecStart = ''
-          ${pkgs.holoport}/bin/hcd holoport
+          ${pkgs.holohost}/bin/hcd holohost
         '';
         Restart = "on-failure";
         PrivateTmp = true;
