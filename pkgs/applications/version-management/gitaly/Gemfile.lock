@@ -65,7 +65,7 @@ GEM
       googleapis-common-protos-types (~> 1.0.0)
       googleauth (>= 0.5.1, < 0.7)
     i18n (0.8.1)
-    json (2.1.0)
+    json (2.5.1)
     jwt (2.1.0)
     licensee (8.7.0)
       rugged (~> 0.24)
